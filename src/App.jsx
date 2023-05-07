@@ -1,12 +1,15 @@
 import { useState, useEffect  } from "react"
 import { Header } from "./components/Header"
 import { Tasks } from "./components/Tasks"
+import EditForm from "./components/EditTask";
 
 
 const LOCAL_STORAGE_KEY = "todo:savedTasks"
 
 function App() {
   const [tasks, setTasks] = useState([]);
+  const [editedTask, setEditedTask] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
 
   function setTasksAndSave(newTasks) {
     setTasks(newTasks);
@@ -49,11 +52,20 @@ function App() {
     setTasksAndSave(newTasks);
   }
 
-  const editTask = (taskId, editedTitle) => {
-    var tasksArray = [...tasks]
-    tasksArray.splice(taskId, 1, {title:editedTitle, taskId: taskId})
-    setTasks(tasksArray)
+  const updateTask = (task) => {
+    setTasks(tasks => tasks.map(t => (
+      task.id === t.id
+        ? {...t, title: task.title} 
+        : task
+      )))
+      
   }
+
+  const enterEditMode = (task) => {
+    setEditedTask(task);
+    setIsEditing(true)
+  }
+
 
   function deleteTaskById(taskId) {
     const newTasks = tasks.filter(task => task.id !== taskId);
@@ -69,6 +81,13 @@ function App() {
         onComplete={toogleTaskCompletedById}
         onDelete={deleteTaskById}
       />
+      {
+        isEditing && (
+        <EditForm
+        editedTask={editedTask}
+        updateTask={updateTask}
+      />)
+      }
     </>
   )
 }

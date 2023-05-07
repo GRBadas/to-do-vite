@@ -2,7 +2,7 @@
 import { Task } from '../Task'
 import styles from './tasks.module.css'
 
-export function Tasks({ tasks, onComplete, onDelete }) {
+export function Tasks({ tasks, onComplete, onDelete, enterEditMode }) {
     const tasksQuantity = tasks.length;
     const completedTasks = tasks.filter(task => task.isCompleted).length
 
@@ -28,6 +28,7 @@ export function Tasks({ tasks, onComplete, onDelete }) {
                     task={task} 
                     onComplete={onComplete} 
                     onDelete={onDelete} 
+                    enterEditMode={enterEditMode}
                     />
                     ))}
             </div>

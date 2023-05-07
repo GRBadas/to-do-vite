@@ -4,7 +4,7 @@ import {TbTrash} from 'react-icons/tb'
 import {BsFillCheckCircleFill} from 'react-icons/bs'
 import {MdEditNote} from 'react-icons/md'
 
-export function Task({ task, onComplete, onDelete, onEdit }) {
+export function Task({ task, onComplete, onDelete, enterEditMode }) {
 
 
     return (
@@ -24,7 +24,7 @@ export function Task({ task, onComplete, onDelete, onEdit }) {
             </button>
 
             <button 
-            onClick={() => onEdit(task.id)}
+            onClick={() => enterEditMode(task)}
             className={styles.deleteButton}
             >
                 <MdEditNote size={20}/>
